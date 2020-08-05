@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1042490072080",
+    "firebase_url": "https://autumn3-aut3.firebaseio.com",
+    "project_id": "autumn3-aut3",
+    "storage_bucket": "autumn3-aut3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042490072080:android:cf1ad7d666355c5774be95",
+        "android_client_info": {
+          "package_name": "com.anvesh.autumn3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042490072080-g3uijnbuu4e0q9jsmcf3bihdab2stric.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anvesh.autumn3",
+            "certificate_hash": "139802075cdb6840665321019bda6870df5b825d"
+          }
+        },
+        {
+          "client_id": "1042490072080-ucg22csop9mjqbdnc7kc3hgian40parm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByu1Em3M8Pkg5LCgrVunE9_Qaql3qCQd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042490072080-ucg22csop9mjqbdnc7kc3hgian40parm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

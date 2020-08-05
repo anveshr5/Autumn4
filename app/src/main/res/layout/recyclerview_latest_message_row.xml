@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="81dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/llLatestMessageRow"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProfilePhoto"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:civ_border_width="2dp"
+            android:padding="10dp"
+            android:src="@drawable/profile_icon" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtUsername"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Username"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <View
+                android:id="@+id/newMessageNotif"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/new_msg_style"
+                android:layout_alignParentEnd="true"
+                android:visibility="gone"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"/>
+
+            <TextView
+                android:id="@+id/txtLatestMessage"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/txtUsername"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:maxLines="2"
+                android:text="This is the latest message received" />
+
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/llLatestMessageRow"
+        android:background="#888888"/>
+</RelativeLayout>

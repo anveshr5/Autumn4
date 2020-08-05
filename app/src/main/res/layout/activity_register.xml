@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background_style"
+    tools:context=".activity.RegisterActivity">
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlSelectPhotoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp">
+
+    <Button
+        android:id="@+id/btnSelectPhoto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="25dp"
+        android:background="@drawable/circle_photo_button_style"
+        android:text="Select Photo" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgCircleViewSelectedPhoto"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="25dp"
+        android:elevation="10dp"
+        android:src="@drawable/profile_photo"
+        android:visibility="gone"
+        app:civ_border_width="4dp" />
+
+    <!--<de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgTurnImageClockwise"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_rotate_image"
+        android:layout_toEndOf="@+id/imgCircleViewSelectedPhoto"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"/>   -->
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSelectPhotoLayout"
+        android:layout_margin="10dp"
+        android:background="#ffffff"
+        android:padding="10dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:drawableStart="@drawable/ic_username"
+                android:drawablePadding="10dp"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="10dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="10dp"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="Register" />
+
+            <TextView
+                android:id="@+id/txtLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Already have an account?"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <RelativeLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99FFFFFF"
+        android:clickable="true"
+        android:elevation="10dp"
+        android:visibility="gone">
+
+        <com.agrawalsuneet.dotsloader.loaders.AllianceLoader
+            android:id="@+id/progressBar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:elevation="15dp"
+            app:alliance_animDuration="500"
+            app:alliance_distanceMultiplier="4"
+            app:alliance_dotsRadius="20dp"
+            app:alliance_drawOnlyStroke="true"
+            app:alliance_firstDotsColor="@color/colorPrimary"
+            app:alliance_secondDotsColor="@color/colorPrimary"
+            app:alliance_strokeWidth="8dp"
+            app:alliance_thirdDotsColor="@color/colorPrimary" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
