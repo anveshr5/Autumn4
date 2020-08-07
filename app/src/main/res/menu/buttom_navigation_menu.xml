@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/chat"
+            android:icon="@drawable/ic_message_icon"
+            android:title="@string/messages"
+            app:cnb_iconColor="#FFFFFF" />
+
+        <item
+            android:id="@+id/autumn"
+            android:icon="@drawable/ic_maple"
+            android:title="@string/autumn"
+            app:cnb_iconColor="#FFFFFF" />
+
+        <item
+            android:id="@+id/myProfile"
+            android:icon="@drawable/ic_my_profile_icon"
+            android:title="@string/my_profile"
+            app:cnb_iconColor="#FFFFFF" />
+
+
+    </group>
+
+</menu>
