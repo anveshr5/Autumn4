@@ -1,7 +1,6 @@
 package com.anvesh.autumn3.adapter
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
 import com.anvesh.autumn3.activity.ChatLogActivity
-import com.anvesh.autumn3.activity.LatestMessagesActivity
-import com.anvesh.autumn3.activity.NewMessageActivity
+import com.anvesh.autumn3.fragments.ChatSectionFragment
 import com.anvesh.autumn3.model.User
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -45,7 +42,7 @@ class NewMessageAdapter(
         Picasso.get().load(newUser?.profileImageUrl).into(holder.imgProfilePhoto)
 
         holder.rlNewMessage.setOnClickListener {
-            if (newUser?.uid != LatestMessagesActivity.currentUser?.uid) {
+            if (newUser?.uid != ChatSectionFragment.currentUser?.uid) {
                 val intent = Intent(context as Activity, ChatLogActivity::class.java)
                 intent.putExtra("ToUser", newUser)
                 context.startActivity(intent)

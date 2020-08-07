@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
+import com.anvesh.autumn3.fragments.ChatSectionFragment
 import com.anvesh.autumn3.model.ChatMessage
 import com.anvesh.autumn3.model.MessageFromItem
 import com.anvesh.autumn3.model.MessageToItem
@@ -75,7 +76,7 @@ class ChatLogActivity : AppCompatActivity() {
                         chatLogAdapter.add(MessageFromItem(this@ChatLogActivity,chatMessage.text, toUser!!))
                         recyclerChatLog.scrollToPosition(chatLogAdapter.itemCount -  1)
                     } else {
-                        chatLogAdapter.add(MessageToItem(this@ChatLogActivity,chatMessage.text,LatestMessagesActivity.currentUser!!))
+                        chatLogAdapter.add(MessageToItem(this@ChatLogActivity,chatMessage.text,ChatSectionFragment.currentUser!!))
                     }
                 }
             }

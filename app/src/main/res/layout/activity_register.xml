@@ -54,6 +54,7 @@
         android:layout_margin="10dp"
         android:background="#ffffff"
         android:padding="10dp"
+        android:elevation="20dp"
         app:cardCornerRadius="20dp">
 
         <LinearLayout

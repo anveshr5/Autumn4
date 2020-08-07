@@ -1,7 +1,9 @@
 package com.anvesh.autumn3.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -15,8 +17,10 @@ import com.anvesh.autumn3.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
+
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -39,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
-            val intent = Intent(this, LatestMessagesActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -88,27 +92,6 @@ class RegisterActivity : AppCompatActivity() {
             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
             startActivity(intent)
         }
-
-        /*imgTurnImageAntiClockwise.setOnClickListener {
-            when (rotation) {
-                -1 -> {
-                    imgCircleViewSelectedPhoto.rotation = 90F
-                    rotation = 0
-                }
-                0 -> {
-                    imgCircleViewSelectedPhoto.rotation = 180F
-                    rotation = 1
-                }
-                1 -> {
-                    imgCircleViewSelectedPhoto.rotation = 270F
-                    rotation = 2
-                }
-                2 -> {
-                    imgCircleViewSelectedPhoto.rotation = 360F
-                    rotation = -1
-                }
-            }
-        }*/
     }
 
     private fun performRegister() {
@@ -168,7 +151,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     var selectedPhotoUri: Uri? = null
-
+    var bitmap: Bitmap? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -176,12 +159,11 @@ class RegisterActivity : AppCompatActivity() {
             //retrieve selected image into app
             selectedPhotoUri = data.data
 
-            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
-
+            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
             val bitmapDrawable = BitmapDrawable(this.resources, bitmap)
 
             btnSelectPhoto.visibility = View.GONE
-            imgCircleViewSelectedPhoto.setImageBitmap(bitmap)
+            Picasso.get().load(selectedPhotoUri).into(imgCircleViewSelectedPhoto)
             imgCircleViewSelectedPhoto.visibility = View.VISIBLE
         }
     }
@@ -209,7 +191,7 @@ class RegisterActivity : AppCompatActivity() {
         ref.setValue(user).addOnSuccessListener {
             Log.d("Added", "${user.uid}, ${user.username}, ${user.profileImageUrl}: User Created")
 
-            val intent = Intent(this, LatestMessagesActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }

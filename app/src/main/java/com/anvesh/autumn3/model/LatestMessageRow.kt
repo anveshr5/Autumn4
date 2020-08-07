@@ -6,7 +6,7 @@ import android.content.Intent
 import android.view.View
 import com.anvesh.autumn3.R
 import com.anvesh.autumn3.activity.ChatLogActivity
-import com.anvesh.autumn3.activity.LatestMessagesActivity
+import com.anvesh.autumn3.fragments.ChatSectionFragment
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -28,7 +28,7 @@ class LatestMessageRow(val context: Context,val chatMessage: ChatMessage) : Item
 
 
         val friendId: String
-        if (chatMessage.fromId == LatestMessagesActivity.currentUser?.uid){
+        if (chatMessage.fromId == ChatSectionFragment.currentUser?.uid){
             friendId = chatMessage.toId
         } else {
             friendId = chatMessage.fromId
@@ -41,7 +41,7 @@ class LatestMessageRow(val context: Context,val chatMessage: ChatMessage) : Item
                 user = snapshot.getValue(User::class.java) ?: return
 
                 viewHolder.itemView.txtUsername.text = user!!.username
-                if (chatMessage.toId == LatestMessagesActivity.currentUser?.uid) {
+                if (chatMessage.toId == ChatSectionFragment.currentUser?.uid) {
                     viewHolder.itemView.newMessageNotif.visibility = View.VISIBLE
                     viewHolder.itemView.txtLatestMessage.text = chatMessage.text
                 } else {
