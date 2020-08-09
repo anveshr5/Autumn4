@@ -71,12 +71,12 @@ class ChatLogActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
                 if (chatMessage != null) {
-                    Log.d("chatMessage",chatMessage?.text)
+                    Log.d("chatMessage", chatMessage.text)
                     if (chatMessage.fromId == toUser?.uid){
                         chatLogAdapter.add(MessageFromItem(this@ChatLogActivity,chatMessage.text, toUser!!))
                         recyclerChatLog.scrollToPosition(chatLogAdapter.itemCount -  1)
                     } else {
-                        chatLogAdapter.add(MessageToItem(this@ChatLogActivity,chatMessage.text,ChatSectionFragment.currentUser!!))
+                        chatLogAdapter.add(MessageToItem(this@ChatLogActivity,chatMessage.text,MainActivity.currentUser!!))
                     }
                 }
             }

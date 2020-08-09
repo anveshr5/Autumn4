@@ -1,30 +1,38 @@
 package com.anvesh.autumn3.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.FrameLayout
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.anvesh.autumn3.R
-import com.anvesh.autumn3.fragments.AutumnChatFragment
-import com.anvesh.autumn3.fragments.ChatSectionFragment
-import com.anvesh.autumn3.fragments.MyProfileFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.anvesh.autumn3.fragments.*
+import com.anvesh.autumn3.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var frameLayout: FrameLayout
-    lateinit var bottomNavigationView: ChipNavigationBar
+    private lateinit var frameLayout: FrameLayout
+    private lateinit var bottomNavigationView: ChipNavigationBar
+
+    companion object {
+        var currentUser: User? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.title = "Autumn"
 
+        fetchCurrentUser()
+
         frameLayout = findViewById(R.id.frameLayout)
         bottomNavigationView = findViewById(R.id.bottomNavigationBar)
+
         openChatSection()
 
         navigationBarListener()
@@ -32,8 +40,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigationBarListener() {
         bottomNavigationView.setOnItemSelectedListener {
-            when(it){
+            when (it) {
                 R.id.chat -> openChatSection()
+
+                R.id.globalFeed -> openGlobalFeed()
+
+                R.id.addPhotoToFeed-> openAddPhotoToFeed()
 
                 R.id.autumn -> openAutumn()
 
@@ -43,11 +55,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openMyProfile() {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout,MyProfileFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, MyProfileFragment())
+            .commit()
     }
 
     private fun openAutumn() {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout,AutumnChatFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AutumnChatFragment())
+            .commit()
+    }
+
+    private fun openAddPhotoToFeed() {
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AddPhotoToFeedFragment())
+            .commit()
+    }
+
+    private fun openGlobalFeed() {
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GlobalFeedFragment())
+            .commit()
     }
 
     private fun openChatSection() {
@@ -57,6 +81,18 @@ class MainActivity : AppCompatActivity() {
         ).commit()
         bottomNavigationView.setItemSelected(R.id.chat, true)
         supportActionBar?.title = "Messenger"
+    }
+
+    private fun fetchCurrentUser() {
+        val currentUid = FirebaseAuth.getInstance().currentUser?.uid
+        val ref = FirebaseDatabase.getInstance().getReference("/users/$currentUid")
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                currentUser = snapshot.getValue(User::class.java)
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 }
 

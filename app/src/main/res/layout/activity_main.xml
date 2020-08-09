@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:cnb_menuResource="@menu/buttom_navigation_menu"
-        android:background="#FF4141"
+        android:background="@drawable/chip_navigation_style"
         app:cnb_unselectedColor="#A6A6A6"/>
 
 </RelativeLayout>

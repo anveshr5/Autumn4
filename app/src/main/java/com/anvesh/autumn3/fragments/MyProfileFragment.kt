@@ -24,7 +24,7 @@ class MyProfileFragment : Fragment() {
     lateinit var txtUsername: TextView
     lateinit var btnLogOut: Button
 
-    val userProfile: User? = ChatSectionFragment.currentUser
+    val userProfile: User? = MainActivity.currentUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

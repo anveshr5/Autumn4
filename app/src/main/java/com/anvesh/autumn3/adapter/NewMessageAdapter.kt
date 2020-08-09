@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
 import com.anvesh.autumn3.activity.ChatLogActivity
+import com.anvesh.autumn3.activity.MainActivity
 import com.anvesh.autumn3.fragments.ChatSectionFragment
 import com.anvesh.autumn3.model.User
 import com.squareup.picasso.Picasso
@@ -42,7 +43,7 @@ class NewMessageAdapter(
         Picasso.get().load(newUser?.profileImageUrl).into(holder.imgProfilePhoto)
 
         holder.rlNewMessage.setOnClickListener {
-            if (newUser?.uid != ChatSectionFragment.currentUser?.uid) {
+            if (newUser?.uid != MainActivity.currentUser?.uid) {
                 val intent = Intent(context as Activity, ChatLogActivity::class.java)
                 intent.putExtra("ToUser", newUser)
                 context.startActivity(intent)

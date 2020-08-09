@@ -151,16 +151,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     var selectedPhotoUri: Uri? = null
-    var bitmap: Bitmap? = null
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             //retrieve selected image into app
             selectedPhotoUri = data.data
-
-            bitmap = MediaStore.Images.Media.getBitmap(contentResolver, selectedPhotoUri)
-            val bitmapDrawable = BitmapDrawable(this.resources, bitmap)
 
             btnSelectPhoto.visibility = View.GONE
             Picasso.get().load(selectedPhotoUri).into(imgCircleViewSelectedPhoto)

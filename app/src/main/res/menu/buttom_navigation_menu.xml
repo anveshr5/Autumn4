@@ -11,6 +11,18 @@
             app:cnb_iconColor="#FFFFFF" />
 
         <item
+            android:id="@+id/globalFeed"
+            android:icon="@drawable/ic_feed"
+            android:title="Feed"
+            app:cnb_iconColor="#FFFFFF" />
+
+        <item
+            android:id="@+id/addPhotoToFeed"
+            android:icon="@drawable/ic_add_photo_to_feed"
+            android:title="Add Photo"
+            app:cnb_iconColor="#FFFFFF"/>
+
+        <item
             android:id="@+id/autumn"
             android:icon="@drawable/ic_maple"
             android:title="@string/autumn"

@@ -7,7 +7,12 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import com.anvesh.autumn3.R
+import com.anvesh.autumn3.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class LoginActivity : AppCompatActivity() {
 
@@ -44,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Log.d("LoginActivity", "signInWithEmail:success")
-                        val user = auth.currentUser
+
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -76,4 +81,5 @@ class LoginActivity : AppCompatActivity() {
         input.error = error
         input.requestFocus()
     }
+
 }
