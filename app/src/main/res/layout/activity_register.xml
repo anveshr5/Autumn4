@@ -35,15 +35,6 @@
         android:visibility="gone"
         app:civ_border_width="4dp" />
 
-    <!--<de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgTurnImageClockwise"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_rotate_image"
-        android:layout_toEndOf="@+id/imgCircleViewSelectedPhoto"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="10dp"/>   -->
-
     </RelativeLayout>
 
     <androidx.cardview.widget.CardView
@@ -96,6 +87,16 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/etUserBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_user_bio"
+                android:drawablePadding="10dp"
+                android:layout_margin="15dp"
+                android:hint="User Bio"
+                android:padding="10dp"/>
 
             <Button
                 android:id="@+id/btnRegister"
