@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:visibility="gone"
+        android:maxLength="350"
         android:layout_below="@+id/imgSelectedImageToAdd"
         android:hint="Enter Caption Here...."
         />
@@ -50,7 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#99FFFFFF"
-
         android:clickable="true"
         android:elevation="10dp">
 

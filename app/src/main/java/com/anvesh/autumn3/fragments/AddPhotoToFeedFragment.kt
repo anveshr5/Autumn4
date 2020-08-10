@@ -59,10 +59,19 @@ class AddPhotoToFeedFragment : Fragment() {
 
         btnAddPostToFeed.setOnClickListener {
             progressLayout.visibility = View.VISIBLE
-            uploadPhotoToFirebase()
+            if (etPostCaption.text.toString().trimEnd() != "" &&
+                etPostCaption.text.toString().trimEnd().length <= 250
+            ) {
+                uploadPhotoToFirebase()
+            } else {
+                progressLayout.visibility = View.GONE
+                if (etPostCaption.text.toString().trimEnd() == "") {
+                    showError(etPostCaption, "Must have a caption")
+                } else if (etPostCaption.text.toString().trimEnd().length > 250) {
+                    showError(etPostCaption, "Caption can not exceed 250 characters")
+                }
+            }
         }
-
-
 
         return view
     }
@@ -75,7 +84,10 @@ class AddPhotoToFeedFragment : Fragment() {
 
         val addPhotoToFeedRef = FirebaseDatabase.getInstance().getReference("/global-posts").push()
 
-        if (addPhotoToFeedRef.key != null && userUid != null && username != null && userImageUrl != null && postCaption != "" && postCaption.length <= 250) {
+        val selfRef =
+            FirebaseDatabase.getInstance().getReference("/posts/${MainActivity.currentUser?.uid}")
+
+        if (addPhotoToFeedRef.key != null && userUid != null && username != null && userImageUrl != null) {
             addPhotoToFeedRef.setValue(
                 FeedPostModel(
                     addPhotoToFeedRef.key!!,
@@ -87,19 +99,32 @@ class AddPhotoToFeedFragment : Fragment() {
                     System.currentTimeMillis() / 1000
                 )
             ).addOnSuccessListener {
-                activity?.supportFragmentManager!!.beginTransaction().replace(R.id.frameLayout, GlobalFeedFragment()).commit()
-                activity?.bottomNavigationBar!!.setItemSelected(R.id.globalFeed,true)
+                activity?.supportFragmentManager!!.beginTransaction()
+                    .replace(R.id.frameLayout, GlobalFeedFragment()).commit()
+                activity?.bottomNavigationBar!!.setItemSelected(R.id.globalFeed, true)
             }
-        } else if (userUid == null || username == null || userImageUrl == null) {
-            Toast.makeText(
-                activity as Context,
-                "An error occurred, please try again later",
-                Toast.LENGTH_SHORT
-            ).show()
-        } else if (postCaption == ""){
-            showError(etPostCaption,"Must have a caption")
-        } else if (postCaption.length > 250){
-            showError(etPostCaption,"Caption can not exceed 250 characters")
+            selfRef.setValue(
+                FeedPostModel(
+                    addPhotoToFeedRef.key!!,
+                    userUid,
+                    username,
+                    userImageUrl,
+                    postImageUrl,
+                    postCaption,
+                    System.currentTimeMillis() / 1000
+                )
+            ).addOnSuccessListener {
+                //Add on success listener
+            }
+        } else {
+            progressLayout.visibility = View.GONE
+            if (userUid == null || username == null || userImageUrl == null) {
+                Toast.makeText(
+                    activity as Context,
+                    "An error occurred, please try again later",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.anvesh.autumn3.fragments
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.widget.RelativeLayout
@@ -28,10 +29,6 @@ class ChatSectionFragment : Fragment() {
     lateinit var rlNoMsgsYet: RelativeLayout
 
     val latestMessageAdapter = GroupAdapter<GroupieViewHolder>()
-
-    private val timeComparator = Comparator<ChatMessage> { msg1, msg2 ->
-        msg1.timestamp.compareTo(msg2.timestamp)
-    }
 
     private val latestMessagesArrayList: MutableCollection<ChatMessage> = arrayListOf()
 
@@ -102,7 +99,9 @@ class ChatSectionFragment : Fragment() {
                 newList.forEach {
                     latestMessageAdapter.add(LatestMessageRow(activity as Context, it))
                 }
-                rlNoMsgsYet.visibility = View.GONE
+                Handler().postDelayed({
+                    rlNoMsgsYet.visibility = View.GONE
+                },200)
             }
         }
     }

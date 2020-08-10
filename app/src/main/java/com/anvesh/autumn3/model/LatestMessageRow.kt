@@ -28,11 +28,10 @@ class LatestMessageRow(val context: Context,val chatMessage: ChatMessage) : Item
     override fun bind(viewHolder: GroupieViewHolder, position: Int){
 
 
-        val friendId: String
-        if (chatMessage.fromId == MainActivity.currentUser?.uid){
-            friendId = chatMessage.toId
+        val friendId = if (chatMessage.fromId == MainActivity.currentUser?.uid){
+            chatMessage.toId
         } else {
-            friendId = chatMessage.fromId
+            chatMessage.fromId
         }
 
         val ref = FirebaseDatabase.getInstance().getReference("/users/$friendId")
@@ -47,7 +46,8 @@ class LatestMessageRow(val context: Context,val chatMessage: ChatMessage) : Item
                     viewHolder.itemView.txtLatestMessage.text = chatMessage.text
                 } else {
                     viewHolder.itemView.newMessageNotif.visibility = View.GONE
-                    viewHolder.itemView.txtLatestMessage.text = "You: " + chatMessage.text
+                    val lastMessage = "You: " + chatMessage.text
+                    viewHolder.itemView.txtLatestMessage.text = lastMessage
                 }
                 Picasso.get().load(user!!.profileImageUrl).error(R.drawable.profile_photo).into(viewHolder.itemView.imgProfilePhoto)
             }

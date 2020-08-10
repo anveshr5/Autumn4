@@ -27,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
     lateinit var btnSelectPhoto: Button
     lateinit var imgCircleViewSelectedPhoto: CircleImageView
     lateinit var etUsername: EditText
+    lateinit var etUserBio: EditText
     lateinit var etEmail: EditText
     lateinit var etPassword: EditText
     lateinit var btnRegister: Button
@@ -36,19 +37,6 @@ class RegisterActivity : AppCompatActivity() {
 
     lateinit var auth: FirebaseAuth
 
-    // var rotation = -1
-
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -57,6 +45,7 @@ class RegisterActivity : AppCompatActivity() {
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto)
         imgCircleViewSelectedPhoto = findViewById(R.id.imgCircleViewSelectedPhoto)
         etUsername = findViewById(R.id.etUsername)
+        etUserBio = findViewById(R.id.etUserBio)
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         btnRegister = findViewById(R.id.btnRegister)
@@ -68,12 +57,6 @@ class RegisterActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btnRegister.setOnClickListener {
-            progressLayout.visibility = View.VISIBLE
-            Toast.makeText(
-                this@RegisterActivity,
-                "Registering...",
-                Toast.LENGTH_LONG
-            ).show()
             performRegister()
         }
 
@@ -95,13 +78,20 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun performRegister() {
-        val username = etUsername.text.toString()
+        val username = etUsername.text.toString().trimEnd()
         val email = etEmail.text.toString().trimEnd()
-        val password = etPassword.text.toString()
+        val password = etPassword.text.toString().trimEnd()
+        val userBio = etUserBio.text.toString().trimEnd()
 
-        if (username.isNotEmpty() && email.isNotEmpty() && password.length >= 6 && selectedPhotoUri != null) {
+        if (username.isNotEmpty() && email.isNotEmpty() && password.length >= 6 && selectedPhotoUri != null && userBio.isNotEmpty() && userBio.length<=250) {
             val str = "Username = $username\nEmail = $email\nPassword = $password"
             Log.d("RegisterActivity", str)
+            progressLayout.visibility = View.VISIBLE
+            Toast.makeText(
+                this@RegisterActivity,
+                "Registering...",
+                Toast.LENGTH_LONG
+            ).show()
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this@RegisterActivity) { task ->
@@ -141,6 +131,12 @@ class RegisterActivity : AppCompatActivity() {
                     "Please select a profile photo to register",
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+            if(userBio == ""){
+                showError(etUserBio,"Bio must not be null")
+            }
+            if(userBio.length > 250){
+                showError(etUsername,"Bio can not be greater than 250 characters")
             }
         }
     }
@@ -182,7 +178,7 @@ class RegisterActivity : AppCompatActivity() {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
 
-        val user = User(uid, etUsername.text.toString(), profileImageUrl)
+        val user = User(uid, etUsername.text.toString(), profileImageUrl,etUserBio.text.toString())
 
         ref.setValue(user).addOnSuccessListener {
             Log.d("Added", "${user.uid}, ${user.username}, ${user.profileImageUrl}: User Created")

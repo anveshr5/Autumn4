@@ -26,7 +26,7 @@
         android:textColor="#000000"/>
 
     <TextView
-        android:id="@+id/userStatus"
+        android:id="@+id/txtUserBio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="I will never give up"

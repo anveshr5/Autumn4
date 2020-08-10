@@ -1,5 +1,6 @@
 package com.anvesh.autumn3.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -57,5 +58,11 @@ class NewMessageActivity : AppCompatActivity() {
                 Log.d("userList",userList.toString())
             }
         })
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this@NewMessageActivity, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }

@@ -1,9 +1,11 @@
 package com.anvesh.autumn3.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.anvesh.autumn3.R
 import com.anvesh.autumn3.fragments.*
 import com.anvesh.autumn3.model.User
@@ -93,6 +95,14 @@ class MainActivity : AppCompatActivity() {
             override fun onCancelled(error: DatabaseError) {
             }
         })
+    }
+
+    override fun onBackPressed() {
+        when(supportFragmentManager.findFragmentById(R.id.frameLayout)){
+            !is ChatSectionFragment-> openChatSection()
+
+        else -> ActivityCompat.finishAffinity(this@MainActivity)
+        }
     }
 }
 
