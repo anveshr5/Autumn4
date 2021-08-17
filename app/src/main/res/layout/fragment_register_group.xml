@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.makegroup.RegisterGroupFragment">
+
+    <RelativeLayout
+        android:id="@+id/rlSelectPhotoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:id="@+id/btnSelectPhoto"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="25dp"
+            android:background="@drawable/circle_photo_button_style"
+            android:text="Select Photo" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgCircleViewSelectedPhoto"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="25dp"
+            android:elevation="10dp"
+            android:src="@drawable/profile_photo"
+            android:visibility="gone"
+            app:civ_border_width="4dp" />
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlSelectPhotoLayout"
+        android:layout_margin="10dp"
+        android:background="#ffffff"
+        android:padding="10dp"
+        android:elevation="20dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etGroupName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:drawableStart="@drawable/ic_username"
+                android:drawablePadding="10dp"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:maxLength="10"
+                android:maxLines="1"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/etGroupBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_user_bio"
+                android:drawablePadding="10dp"
+                android:layout_margin="15dp"
+                android:hint="User Bio"
+                android:padding="10dp"/>
+
+            <Button
+                android:id="@+id/btnRegisterGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_style"
+                android:text="Create New Group" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
