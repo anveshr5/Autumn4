@@ -1,4 +1,4 @@
-package com.anvesh.autumn3.fragments
+package com.anvesh.autumn3.fragments.mainActivity
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

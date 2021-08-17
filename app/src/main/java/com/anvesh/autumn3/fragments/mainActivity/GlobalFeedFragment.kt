@@ -1,7 +1,6 @@
-package com.anvesh.autumn3.fragments
+package com.anvesh.autumn3.fragments.mainActivity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +9,12 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
-import com.anvesh.autumn3.activity.MainActivity
 import com.anvesh.autumn3.adapter.GlobalFeedPostsAdapter
 import com.anvesh.autumn3.model.FeedPostModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.xwray.groupie.GroupAdapter
-import com.xwray.groupie.GroupieViewHolder
 
 class GlobalFeedFragment : Fragment() {
 
@@ -71,7 +67,7 @@ class GlobalFeedFragment : Fragment() {
             recyclerGlobalFeed.adapter?.notifyDataSetChanged()
             progressLayout.visibility = View.GONE
         } else {
-            txtLoadingMessage.text = "No posts to display"
+            txtLoadingMessage.text = getString(R.string.no_posts_to_display)
             //Add No internet connection
         }
     }

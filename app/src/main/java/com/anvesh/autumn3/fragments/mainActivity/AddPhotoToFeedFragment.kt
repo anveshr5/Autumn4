@@ -1,10 +1,11 @@
-package com.anvesh.autumn3.fragments
+package com.anvesh.autumn3.fragments.mainActivity
 
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,11 @@ import androidx.fragment.app.Fragment
 import com.anvesh.autumn3.R
 import com.anvesh.autumn3.activity.MainActivity
 import com.anvesh.autumn3.model.FeedPostModel
+import com.bumptech.glide.Glide
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.squareup.picasso.Picasso
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -29,6 +32,7 @@ class AddPhotoToFeedFragment : Fragment() {
     lateinit var progressLayout: RelativeLayout
 
     var selectedPhotoToAddUri: Uri? = null
+    var croppedPhotoUri: Uri? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,7 +89,7 @@ class AddPhotoToFeedFragment : Fragment() {
         val addPhotoToFeedRef = FirebaseDatabase.getInstance().getReference("/global-posts").push()
 
         val selfRef =
-            FirebaseDatabase.getInstance().getReference("/posts/${MainActivity.currentUser?.uid}")
+            FirebaseDatabase.getInstance().getReference("/posts/${MainActivity.currentUser?.uid}").push()
 
         if (addPhotoToFeedRef.key != null && userUid != null && username != null && userImageUrl != null) {
             addPhotoToFeedRef.setValue(
@@ -100,7 +104,9 @@ class AddPhotoToFeedFragment : Fragment() {
                 )
             ).addOnSuccessListener {
                 activity?.supportFragmentManager!!.beginTransaction()
-                    .replace(R.id.frameLayout, GlobalFeedFragment()).commit()
+                    .replace(R.id.frameLayout,
+                        GlobalFeedFragment()
+                    ).commit()
                 activity?.bottomNavigationBar!!.setItemSelected(R.id.globalFeed, true)
             }
             selfRef.setValue(
@@ -129,10 +135,10 @@ class AddPhotoToFeedFragment : Fragment() {
     }
 
     private fun uploadPhotoToFirebase() {
-        if (selectedPhotoToAddUri == null) return
+        if (croppedPhotoUri == null) return
         val filename = UUID.randomUUID().toString()
         val imageRef = FirebaseStorage.getInstance().getReference("/global-posts/$filename")
-        imageRef.putFile(selectedPhotoToAddUri!!).addOnSuccessListener {
+        imageRef.putFile(croppedPhotoUri!!).addOnSuccessListener {
             imageRef.downloadUrl.addOnSuccessListener {
                 addPhotoToFeed(it.toString())
             }
@@ -143,11 +149,38 @@ class AddPhotoToFeedFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            //     retrieve selected image into app
             selectedPhotoToAddUri = data.data
 
-            Picasso.get().load(selectedPhotoToAddUri).into(imgSelectedImageToAdd)
+            //startCropImageActivity(selectedPhotoUri!!)
+            context?.let {
+                CropImage.activity(selectedPhotoToAddUri).setGuidelines(CropImageView.Guidelines.ON).setAllowRotation(true)
+                    .start(
+                        it, this
+                    )
+            }
+        }
 
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == Activity.RESULT_OK) {
+                val resultUri = result.uri
+                croppedPhotoUri = resultUri
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Toast.makeText(activity as Context,"Some Error Occurred",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        if (croppedPhotoUri != null) {
             btnClickToAddPhoto.visibility = View.GONE
+            Glide.with(activity as Context).load(croppedPhotoUri).into(imgSelectedImageToAdd)
+            imgSelectedImageToAdd.visibility = View.VISIBLE
+            etPostCaption.visibility = View.VISIBLE
+            btnAddPostToFeed.visibility = View.VISIBLE
+        } else {
+            btnClickToAddPhoto.visibility = View.GONE
+            Glide.with(activity as Context).load(selectedPhotoToAddUri).into(imgSelectedImageToAdd)
             imgSelectedImageToAdd.visibility = View.VISIBLE
             etPostCaption.visibility = View.VISIBLE
             btnAddPostToFeed.visibility = View.VISIBLE

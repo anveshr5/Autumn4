@@ -2,19 +2,12 @@ package com.anvesh.autumn3.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
-import com.anvesh.autumn3.fragments.ChatSectionFragment
 import com.anvesh.autumn3.model.ChatMessage
 import com.anvesh.autumn3.model.MessageFromItem
 import com.anvesh.autumn3.model.MessageToItem
@@ -71,7 +64,6 @@ class ChatLogActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessage::class.java)
                 if (chatMessage != null) {
-                    Log.d("chatMessage", chatMessage.text)
                     if (chatMessage.fromId == toUser?.uid){
                         chatLogAdapter.add(MessageFromItem(this@ChatLogActivity,chatMessage.text, toUser!!))
                         recyclerChatLog.scrollToPosition(chatLogAdapter.itemCount -  1)
@@ -81,10 +73,11 @@ class ChatLogActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
             }
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -106,7 +99,6 @@ class ChatLogActivity : AppCompatActivity() {
         val chatMessage = ChatMessage(selfRef.key!!,text,fromUserUid ,toUser?.uid!!,System.currentTimeMillis()/1000)
 
         selfRef.setValue(chatMessage).addOnSuccessListener {
-            Log.d("messaged","Text Sent ${chatMessage.text}")
             etNewMessage.text.clear()
             recyclerChatLog.scrollToPosition(chatLogAdapter.itemCount - 1)
         }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background_style"
-    tools:context=".activity.LoginActivity">
+    tools:context=".fragments.loginRegister.LoginFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,7 +80,7 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -103,5 +103,5 @@
             app:alliance_secondDotsColor="@color/colorPrimary"
             app:alliance_strokeWidth="8dp"
             app:alliance_thirdDotsColor="@color/colorPrimary" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 </RelativeLayout>

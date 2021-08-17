@@ -5,7 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.xwray.groupie.Item
 import com.xwray.groupie.GroupieViewHolder
 import kotlinx.android.synthetic.main.recyclerview_chatrow_friend.view.*
@@ -20,9 +20,9 @@ class MessageToItem(val context: Context,val text: String, private val currentUs
 
     override fun bind(viewHolder: GroupieViewHolder, position: Int) {
         viewHolder.itemView.txtmessage.text = text
-        Picasso.get().load(currentUser.profileImageUrl).error(R.drawable.profile_photo).into(viewHolder.itemView.imgProfilePhoto)
+        Glide.with(viewHolder.itemView.context).load(currentUser.profileImageUrl).error(R.drawable.profile_photo).into(viewHolder.itemView.imgProfilePhoto)
         viewHolder.itemView.rlMessageSelf.setOnLongClickListener {
-            var clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             var clip = ClipData.newPlainText("Message",text)
 
             clipboard.setPrimaryClip(clip)

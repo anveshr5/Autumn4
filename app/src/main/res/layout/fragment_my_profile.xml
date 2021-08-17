@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.MyProfileFragment">
+    tools:context=".fragments.mainActivity.MyProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgCircleViewProfilePhoto"
@@ -34,13 +34,21 @@
         android:layout_margin="10dp"
         android:textSize="20sp"/>
 
-    <Button
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewMyPosts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/txtUserBio"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"/>
+
+    <!--<Button
         android:id="@+id/btnLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Log Out"
         android:background="@drawable/button_style"
         android:layout_margin="15dp"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"/>-->
 
 </RelativeLayout>

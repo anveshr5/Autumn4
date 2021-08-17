@@ -1,13 +1,11 @@
 package com.anvesh.autumn3.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.anvesh.autumn3.R
-import com.anvesh.autumn3.fragments.*
+import com.anvesh.autumn3.fragments.mainActivity.*
 import com.anvesh.autumn3.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -57,22 +55,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openMyProfile() {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, MyProfileFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+            MyProfileFragment()
+        )
             .commit()
     }
 
     private fun openAutumn() {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AutumnChatFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+            AutumnChatFragment()
+        )
             .commit()
     }
 
     private fun openAddPhotoToFeed() {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, AddPhotoToFeedFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+            AddPhotoToFeedFragment()
+        )
             .commit()
     }
 
     private fun openGlobalFeed() {
-        supportFragmentManager.beginTransaction().replace(R.id.frameLayout, GlobalFeedFragment())
+        supportFragmentManager.beginTransaction().replace(R.id.frameLayout,
+            GlobalFeedFragment()
+        )
             .commit()
     }
 
@@ -99,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         when(supportFragmentManager.findFragmentById(R.id.frameLayout)){
-            !is ChatSectionFragment-> openChatSection()
+            !is ChatSectionFragment -> openChatSection()
 
         else -> ActivityCompat.finishAffinity(this@MainActivity)
         }

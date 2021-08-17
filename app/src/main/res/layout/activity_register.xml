@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background_style"
-    tools:context=".activity.RegisterActivity">
+    tools:context=".fragments.loginRegister.RegisterFragment">
 
 
 
@@ -15,25 +15,25 @@
         android:layout_height="200dp"
         android:layout_marginTop="50dp">
 
-    <Button
-        android:id="@+id/btnSelectPhoto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="25dp"
-        android:background="@drawable/circle_photo_button_style"
-        android:text="Select Photo" />
+        <Button
+            android:id="@+id/btnSelectPhoto"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="25dp"
+            android:background="@drawable/circle_photo_button_style"
+            android:text="Select Photo" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgCircleViewSelectedPhoto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="25dp"
-        android:elevation="10dp"
-        android:src="@drawable/profile_photo"
-        android:visibility="gone"
-        app:civ_border_width="4dp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgCircleViewSelectedPhoto"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="25dp"
+            android:elevation="10dp"
+            android:src="@drawable/profile_photo"
+            android:visibility="gone"
+            app:civ_border_width="4dp" />
 
     </RelativeLayout>
 

@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
 import com.anvesh.autumn3.activity.ChatLogActivity
 import com.anvesh.autumn3.activity.MainActivity
-import com.anvesh.autumn3.fragments.ChatSectionFragment
 import com.anvesh.autumn3.model.User
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
 class NewMessageAdapter(
@@ -40,10 +39,12 @@ class NewMessageAdapter(
     override fun onBindViewHolder(holder: NewMessageViewHolder, position: Int) {
         val newUser = userList[position]
         holder.txtUsername.text = newUser?.username
-        Picasso.get().load(newUser?.profileImageUrl).into(holder.imgProfilePhoto)
+
+        Glide.with(holder.itemView.context).load(newUser!!.profileImageUrl).into(holder.imgProfilePhoto)
+        // Picasso.get().load(newUser?.profileImageUrl).into(holder.imgProfilePhoto)
 
         holder.rlNewMessage.setOnClickListener {
-            if (newUser?.uid != MainActivity.currentUser?.uid) {
+            if (newUser.uid != MainActivity.currentUser?.uid) {
                 val intent = Intent(context as Activity, ChatLogActivity::class.java)
                 intent.putExtra("ToUser", newUser)
                 context.startActivity(intent)

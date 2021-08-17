@@ -1,4 +1,4 @@
-package com.anvesh.autumn3.fragments
+package com.anvesh.autumn3.fragments.mainActivity
 
 import android.content.Context
 import android.content.Intent
@@ -10,23 +10,23 @@ import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.anvesh.autumn3.R
+import com.anvesh.autumn3.activity.LoginRegisterActivity
+import com.anvesh.autumn3.activity.MakeGroup
 import com.anvesh.autumn3.activity.NewMessageActivity
-import com.anvesh.autumn3.activity.RegisterActivity
 import com.anvesh.autumn3.model.ChatMessage
 import com.anvesh.autumn3.model.LatestMessageRow
-import com.anvesh.autumn3.model.User
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
-import java.util.*
-import kotlin.Comparator
 import kotlin.collections.HashMap
 
 class ChatSectionFragment : Fragment() {
 
     lateinit var recyclerLatestMessage: RecyclerView
     lateinit var rlNoMsgsYet: RelativeLayout
+    lateinit var makeGroup: FloatingActionButton
 
     val latestMessageAdapter = GroupAdapter<GroupieViewHolder>()
 
@@ -42,12 +42,22 @@ class ChatSectionFragment : Fragment() {
 
         recyclerLatestMessage = view.findViewById(R.id.recyclerLatestMessage)
         recyclerLatestMessage.adapter = latestMessageAdapter
+        makeGroup = view.findViewById(R.id.btnMakeGroup)
 
         setHasOptionsMenu(true)
 
         listenForLatestMessages()
 
+        makeGroupFun()
+
         return view
+    }
+
+    private fun makeGroupFun() {
+        makeGroup.setOnClickListener {
+            val intent = Intent(activity as Context, MakeGroup::class.java)
+            startActivity(intent)
+        }
     }
 
     val latestMessagesMap = HashMap<String, ChatMessage>()
@@ -119,7 +129,7 @@ class ChatSectionFragment : Fragment() {
             }
             R.id.signOut -> {
                 FirebaseAuth.getInstance().signOut()
-                val intent = Intent(activity as Context, RegisterActivity::class.java)
+                val intent = Intent(activity as Context, LoginRegisterActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
